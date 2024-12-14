@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import Routes from './routes'
 import { Provider } from 'react-redux'
 import { store } from './store'
-import Cart from './components/cart'
+import Cart from './components/Cart'
 
 function App() {
   return (

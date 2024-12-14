@@ -1,7 +1,7 @@
-import Footer from '../../components/footer'
-import RestaurantList from '../../components/restaurantList'
-import HeaderHome from '../../components/headerHome'
-import { useGetRestaurantsQuery } from '../../services/api'
+import Footer from '../../components/Footer'
+import RestaurantList from '../../components/RestaurantList'
+import HeaderHome from '../../components/HeaderHome'
+import { useGetRestaurantQuery } from '../../services/api'
 
 export type Menu = {
   foto: string
@@ -24,7 +24,7 @@ export type Restaurant = {
 }
 
 const Home = () => {
-  const { isLoading, error, data: restaurants } = useGetRestaurantsQuery()
+  const { isLoading, error, data: restaurants } = useGetRestaurantQuery()
 
   if (isLoading) {
     return <p>Carregando...</p>

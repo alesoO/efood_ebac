@@ -15,7 +15,7 @@ const Profile = () => {
   return (
     <>
       <HeaderProfile restaurant={restaurant} />
-      <ProductList product={restaurant.menu} />
+      <ProductList products={restaurant.cardapio} />
       <Footer />
     </>
   )

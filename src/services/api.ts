@@ -58,7 +58,7 @@ const api = createApi({
 
 export const {
   useGetRestaurantSelectedQuery,
-  useGetRestaurantsQuery,
+  useGetRestaurantQuery,
   usePurchaseMutation
 } = api
 export default api

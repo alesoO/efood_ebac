@@ -1,10 +1,10 @@
 import { useFormik } from 'formik'
 import { useState } from 'react'
-import ImportMask from 'react-input-mask'
+import InputMask from 'react-input-mask'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Yup from 'yup'
 import { RootReducer } from '../../store'
-import { formatPrice } from '../product'
+import { formatPrice } from '../Product'
 import * as style from './styles'
 import removeImg from '../../assets/images/remove.svg'
 import { usePurchaseMutation } from '../../services/api'
@@ -199,9 +199,208 @@ const Cart = () => {
                 </style.CardBtn>
               </style.CartMenu>
             )}
+            {menu === 'delivery' && (
+              <style.DeliveryMenu>
+                <h3>Entrega</h3>
+                <div>
+                  <style.InputGroup>
+                    <label htmlFor="receiver">Quem irá receber</label>
+                    <style.Input
+                      maxWidth="344px"
+                      type="text"
+                      id="receiver"
+                      name="receiver"
+                      value={form.values.receiver}
+                      onChange={form.handleChange}
+                      onBlur={form.handleBlur}
+                      className={getError('receiver') ? 'error' : ''}
+                    />
+                  </style.InputGroup>
+                  <style.InputGroup>
+                    <label htmlFor="address">Endereço</label>
+                    <style.Input
+                      maxWidth="344px"
+                      type="text"
+                      id="address"
+                      name="address"
+                      value={form.values.address}
+                      onChange={form.handleChange}
+                      onBlur={form.handleBlur}
+                      className={getError('address') ? 'error' : ''}
+                    />
+                  </style.InputGroup>
+                  <style.InputGroup>
+                    <label htmlFor="city">Cidade</label>
+                    <style.Input
+                      maxWidth="344px"
+                      type="text"
+                      id="city"
+                      name="city"
+                      value={form.values.city}
+                      onChange={form.handleChange}
+                      onBlur={form.handleBlur}
+                      className={getError('city') ? 'error' : ''}
+                    />
+                  </style.InputGroup>
+                  <div>
+                    <style.InputGroup maxWidth="155px">
+                      <label htmlFor="zipCode">CEP</label>
+                      <InputMask
+                        mask="99999-999"
+                        name="zipCode"
+                        type="text"
+                        value={form.values.zipCode}
+                        id="zipCode"
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                        className={getError('zipCode') ? 'error' : ''}
+                      />
+                    </style.InputGroup>
+                    <style.InputGroup maxWidth="155px">
+                      <label htmlFor="number">Número</label>
+                      <input
+                        name="number"
+                        type="text"
+                        value={form.values.number}
+                        id="number"
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                        className={getError('number') ? 'error' : ''}
+                      />
+                    </style.InputGroup>
+                  </div>
+                  <style.InputGroup maxWidth="344px">
+                    <label htmlFor="complement">Complemento (opcional)</label>
+                    <input
+                      type="text"
+                      id="complement"
+                      name="complement"
+                      value={form.values.complement}
+                      onChange={form.handleChange}
+                      className={getError('complement') ? 'error' : ''}
+                    />
+                  </style.InputGroup>
+                </div>
+                <style.CardBtn
+                  type="submit"
+                  onClick={() => {
+                    goToPaymentMenu()
+                  }}
+                >
+                  Continuar com o pagamento
+                </style.CardBtn>
+                <style.CardBtn
+                  type="button"
+                  onClick={() => {
+                    setMenu('cart')
+                  }}
+                >
+                  Voltar para o carrinho
+                </style.CardBtn>
+              </style.DeliveryMenu>
+            )}
+            {menu === 'payment' && (
+              <style.PaymentMenu>
+                <h3>
+                  Pagamento - Valor a pagar {formatPrice(getTotalPrice())}
+                </h3>
+                <div>
+                  <style.InputGroup>
+                    <label htmlFor="cardName">Nome no cartão</label>
+                    <style.Input
+                      maxWidth="344px"
+                      type="text"
+                      id="cardName"
+                      name="cardName"
+                      value={form.values.cardName}
+                      onChange={form.handleChange}
+                      onBlur={form.handleBlur}
+                      className={getError('cardName') ? 'error' : ''}
+                    />
+                  </style.InputGroup>
+                  <div>
+                    <style.InputGroup
+                      style={{ marginRight: '30px' }}
+                      maxWidth="228px"
+                    >
+                      <label htmlFor="cardNumber">Número do cartão</label>
+                      <InputMask
+                        mask="9999 9999 9999 9999"
+                        type="text"
+                        id="cardNumber"
+                        name="cardNumber"
+                        value={form.values.cardNumber}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                        className={getError('cardNumber') ? 'error' : ''}
+                      />
+                    </style.InputGroup>
+                    <style.InputGroup maxWidth="87px">
+                      <label htmlFor="cardCode">CVV</label>
+                      <InputMask
+                        mask="999"
+                        type="text"
+                        id="cardCode"
+                        name="cardCode"
+                        value={form.values.cardCode}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                        className={getError('cardCode') ? 'error' : ''}
+                      />
+                    </style.InputGroup>
+                  </div>
+                  <div>
+                    <style.InputGroup maxWidth="155px">
+                      <label htmlFor="expiresMonth">Mês do vencimento</label>
+                      <InputMask
+                        mask="99"
+                        type="text"
+                        id="expiresMonth"
+                        name="expiresMonth"
+                        value={form.values.expiresMonth}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                        className={getError('expiresMonth') ? 'error' : ''}
+                      />
+                    </style.InputGroup>
+                    <style.InputGroup maxWidth="155px">
+                      <label htmlFor="expiresYear">Ano do vencimento</label>
+                      <InputMask
+                        mask="99"
+                        type="text"
+                        id="expiresYear"
+                        name="expiresYear"
+                        value={form.values.expiresYear}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                        className={getError('expiresYear') ? 'error' : ''}
+                      />
+                    </style.InputGroup>
+                  </div>
+                </div>
+                <style.CardBtn
+                  type="submit"
+                  onClick={() => {
+                    form.handleSubmit()
+                  }}
+                >
+                  Finalizar pagamento
+                </style.CardBtn>
+                <style.CardBtn
+                  type="button"
+                  onClick={() => {
+                    setMenu('delivery')
+                  }}
+                >
+                  Voltar para a edição de endereço
+                </style.CardBtn>
+              </style.PaymentMenu>
+            )}
           </form>
         )}
       </style.CartStyle>
     </style.CartContainer>
   )
 }
+
+export default Cart
